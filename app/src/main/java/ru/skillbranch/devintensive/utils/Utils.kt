@@ -7,7 +7,7 @@ object Utils {
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
 
-        println("The length of String = ${fullName!!.length}")
+        println("The length of String = ${fullName?.length}")
 
         //return Pair(firstName, lastName)
         return if (fullName == "" || fullName == " ") null to null
@@ -22,26 +22,20 @@ object Utils {
 
         val sb = StringBuilder()
         var tempLetter: String
+        var isUpperCase: Boolean
         for (i in 0 until payload.length) {
+            isUpperCase = payload[i].isUpperCase()
             tempLetter = when {
-                payload[i].toString() == " " -> {
-                    divider
-                }
-                payload[i].toLowerCase().toString() in lettersMap -> {
-                    ("${lettersMap[payload[i].toLowerCase().toString()]}")
-                }
-                else -> {
-                    payload[i].toString()
-                }
+                payload[i].toString() == " " -> divider
+                payload[i].toLowerCase().toString() in lettersMap -> ("${lettersMap[payload[i].toLowerCase().toString()]}")
+                else -> payload[i].toString()
             }
-            if (i > 0 && payload[i - 1].toString() == " " || i == 0) {
-                if (tempLetter.length == 2) {
-                    sb.append(tempLetter[0].toUpperCase())
-                    sb.append(tempLetter[1])
-                } else {
-                    sb.append(tempLetter.toUpperCase())
-                }
+
+            if (isUpperCase && tempLetter.length > 1) {
+                sb.append(tempLetter[0].toUpperCase())
+                sb.append(tempLetter[1])
             }
+            else if (isUpperCase) sb.append(tempLetter.toUpperCase())
             else sb.append(tempLetter)
         }
         return sb.toString()
