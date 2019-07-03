@@ -13,20 +13,20 @@ data class User(
     var lastVisit: Date? = null,
     var isOnline: Boolean = false
 ) {
-    private constructor(id: String, firstName: String?, lastName: String?) : this(
+    /*private */constructor(id: String, firstName: String?, lastName: String?) : this(
         id = id,
         firstName = firstName,
         lastName = lastName,
         avatar = null
     )
 
-    private constructor(id: String) : this(id, "John", "Doe")
+    /*private */constructor(id: String) : this(id, "John", "Doe")
 
     init {
         println("It's Alive!!! \n ${if (lastName === "Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName"} \n ")
     }
 
-    /*companion object Factory {
+    companion object Factory {
         private var lastId: Int = -1
         fun makeUser(fullName: String?): User {
             lastId++
@@ -34,7 +34,7 @@ data class User(
             val (firstName, lastName) = Utils.parseFullName(fullName)
             return User(id = "$lastId", firstName = firstName, lastName = lastName)
         }
-    }*/
+    }
 
     data class Builder(
         var id: String = "0",
