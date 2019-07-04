@@ -15,7 +15,6 @@ fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
 
 fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
     var time = this.time
-    //if (value > 0) time += 999
 
     time += when(units){
         TimeUnits.SECOND -> value * SECOND
@@ -101,7 +100,13 @@ fun getTimeWord(number: Int, timeUnits: TimeUnits): String {
                 CountUnits.OTHER -> "$localNumber дней"
             }
         }
-        TimeUnits.SECOND -> return ""
+        TimeUnits.SECOND -> {
+            return when (countUnits) {
+                CountUnits.ONE -> "$localNumber секунду"
+                CountUnits.FEW -> "$localNumber секунды"
+                CountUnits.OTHER -> "$localNumber секунд"
+            }
+        }
     }
 }
 
@@ -114,11 +119,20 @@ fun getTimeNumber(lastVisit: Long, timeUnits: TimeUnits): Int {
     }
 }
 
-enum class TimeUnits{
+enum class TimeUnits {
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(quantity: Int): String {
+        return when (this) {
+            SECOND -> getTimeWord(quantity, this)
+            MINUTE -> getTimeWord(quantity, this)
+            HOUR -> getTimeWord(quantity, this)
+            DAY -> getTimeWord(quantity, this)
+        }
+    }
 }
 enum class CountUnits{
     ONE,
