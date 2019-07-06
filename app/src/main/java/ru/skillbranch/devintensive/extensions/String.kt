@@ -9,8 +9,13 @@ fun String.truncate(quantity: Int = 16): String {
     return resultStr
 }
 
+fun String.stripHtml(): String {
+    val resultStr = this.replace(Regex("<.*?>"), "")
+    return resultStr.replace(Regex("\\s+"), " ")
+}
+
 fun removeSpaces(tempStr: String, quantity: Int): String {
-    var str = tempStr.substring(0, quantity) + "..."
+    val str = tempStr.substring(0, quantity) + "..."
     var resultStr: String
     var countBefore = 0
     var countAfter = 0
