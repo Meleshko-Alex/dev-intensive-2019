@@ -14,6 +14,10 @@ fun String.stripHtml(): String {
     return resultStr.replace(Regex("\\s+"), " ")
 }
 
+fun String.isFirstLetterInLowercase(): Boolean {
+    return this[0] == this.toLowerCase()[0]
+}
+
 fun removeSpaces(tempStr: String, quantity: Int): String {
     val str = tempStr.substring(0, quantity) + "..."
     var resultStr: String
