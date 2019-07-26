@@ -16,10 +16,10 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
         return if (question.answers.contains(answer)) {
             question = question.nextQuestion()
-            "Отлично - это правильный ответ!\n${question.question}" to status.color
+            "Отлично - ты справился\n${question.question}" to status.color
         } else {
             status = status.nextStatus()
-            "Это не правильный ответ!\n${question.question}" to status.color
+            "Это неправильный ответ\n${question.question}" to status.color
         }
     }
 
@@ -43,13 +43,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     enum class Question(val question: String, val answers: List<String>) {
-        NAME("Как меня зовут", listOf("бендер", "bender")) {
+        NAME("Как меня зовут?", listOf("бендер", "bender")) {
             override fun nextQuestion(): Question = PROFESSION
             override fun validateQuestion(question: String): Boolean {
                 return !question.isFirstLetterInLowercase()
             }
         },
-        PROFESSION("Назови мою професию", listOf("сгибальщик", "bender")) {
+        PROFESSION("Назови мою профессию", listOf("сгибальщик", "bender")) {
             override fun nextQuestion(): Question = MATERIAL
             override fun validateQuestion(question: String): Boolean {
                 return question.isFirstLetterInLowercase()
