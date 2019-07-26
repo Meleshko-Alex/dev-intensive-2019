@@ -58,7 +58,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
         if (p1 == EditorInfo.IME_ACTION_DONE) {
-            checkAnswer()
+            if (messageEt.text.toString().isNotEmpty()) {
+                checkAnswer()
+            }
         }
         return false
     }

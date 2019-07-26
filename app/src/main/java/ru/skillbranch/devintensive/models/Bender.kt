@@ -49,7 +49,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 return !question.isFirstLetterInLowercase()
             }
         },
-        PROFESSION("Назови мою профессию", listOf("сгибальщик", "bender")) {
+        PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")) {
             override fun nextQuestion(): Question = MATERIAL
             override fun validateQuestion(question: String): Boolean {
                 return question.isFirstLetterInLowercase()
